@@ -1,0 +1,9 @@
+
+version: "3.9"
+
+services:
+  sftp:
+    image: atmoz/sftp
+    ports:
+      - "22:22"
+    command: user:pass:1001
