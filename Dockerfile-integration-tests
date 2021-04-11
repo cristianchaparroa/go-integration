@@ -20,11 +20,3 @@ COPY . .
 RUN go mod download
 RUN go mod tidy
 RUN go build -o application
-RUN cp application /go/bin
-
-#RUN go clean -testcache && go test -tags=integration ./...
-
-EXPOSE 8080
-
-# Run the executable
-#CMD  ["./application"]
