@@ -20,5 +20,5 @@ func TestIntegrationSFTPConnexion(t *testing.T) {
 	}
 
 	_, err = core.NewSFTPConnexion()
-    assert.Nil(t, err)
+	assert.Nil(t, err)
 }

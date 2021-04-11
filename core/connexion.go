@@ -10,35 +10,33 @@ type SFTPConnexion interface {
 	Close() error
 }
 
-
 type sftpConnexion struct {
-	 client *ssh.Client
+	client *ssh.Client
 }
 
-
-func NewSFTPConnexion()  (SFTPConnexion, error) {
-	sshAddress := os.Getenv("SSH_ADDRESS")
+func NewSFTPConnexion() (SFTPConnexion, error) {
+	sshHost := os.Getenv("SSH_HOST")
+	sshPort := os.Getenv("SSH_PORT")
 	sshUserName := os.Getenv("SSH_USERNAME")
 	sshPassword := os.Getenv("SSH_PASSWORD")
-
-	fmt.Println(sshAddress)
+	address := fmt.Sprintf("%s:%s", sshHost, sshPort)
 
 	conf := &ssh.ClientConfig{
-		User: sshUserName,
+		User:            sshUserName,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 		Auth: []ssh.AuthMethod{
 			ssh.Password(sshPassword),
 		},
 	}
 
-	client, err := ssh.Dial("tcp", sshAddress, conf)
+	client, err := ssh.Dial("tcp", address, conf)
 
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
 
-	connexion :=  &sftpConnexion{
+	connexion := &sftpConnexion{
 		client: client,
 	}
 
@@ -48,4 +46,3 @@ func NewSFTPConnexion()  (SFTPConnexion, error) {
 func (s *sftpConnexion) Close() error {
 	return s.Close()
 }
-
